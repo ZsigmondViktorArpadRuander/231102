@@ -64,16 +64,76 @@ function TrKeszito(f:string, bemenet:any, kimenet:any):void{
     document.getElementById("torzs")?.appendChild(tr);
 }
 
-function Futtatas():void{
-    TrKeszito("Van-e negativ", [12, 23, 5, 0, -1, 17], VanENegativ([12, 23, 5, 0, -1, 17]));
-    TrKeszito("Kor kerulet-terulet", 3, KorKerTer(3));
-}
-
-Futtatas();
-
 /*
 - Keszits publikus GitHub repositorit a sajat felhasznaloi fiokodban
 - Indits Git BASH-t, es a jelenlegi TS projektedben inicializalj git-et
 - A lokalis repo-t kosd ossze az online (github-os) repoddal
 - Toltsd fel a jelenlegi allapotot a github-ra
 */
+
+/*
+TS!!
+- Keszits alprogramot, ami kivalasztja egy auto tombbol a legkisebb hengerurtartalmu autot
+- Keszits alprogramot, ami megadja a parameterul kapott auto tombbol a benzinesek darabszamat
+- A valtoztatasokat toltsd fel a github repodba
+*/
+
+function MinAuto(autok:Auto[]):Auto{
+    var min:Auto = autok[0];
+
+    for(var i:number = 1; i < autok.length; i++){
+        if(autok[i].hengerurtartalom < min.hengerurtartalom){
+            min = autok[i];
+        }
+    }
+
+    return min;
+}
+
+function BenzinesDb(autok:Auto[]):number{
+    var db:number = 0;
+
+    for(var i:number = 0; i < autok.length; i++){
+        if(autok[i].benzinesE /*== true*/){
+            db++;
+        }
+    }
+
+    return db;
+}
+
+function Futtatas():void{
+    TrKeszito("Van-e negativ", [12, 23, 5, 0, -1, 17], VanENegativ([12, 23, 5, 0, -1, 17]));
+    TrKeszito("Kor kerulet-terulet", 3, KorKerTer(3));
+
+    var a1:Auto = {
+        gyarto: "Opel",
+        tipus: "Corsa",
+        hengerurtartalom: 1200,
+        benzinesE: true
+    };
+
+    var a2:Auto = {
+        gyarto: "Volkswagen",
+        tipus: "Passat",
+        hengerurtartalom: 2200,
+        benzinesE: false
+    };
+
+    var a3:Auto = {
+        gyarto: "Mitsubishi",
+        tipus: "Colt",
+        hengerurtartalom: 1400,
+        benzinesE: true
+    };
+
+    var autok:Auto[] = [a1, a2, a3];
+
+    TrKeszito("Min auto", autok, MinAuto(autok));
+    TrKeszito("Benzines db", autok, BenzinesDb(autok));
+
+    /*console.log(MinAuto(autok));
+    console.log(BenzinesDb(autok));*/
+}
+
+Futtatas();

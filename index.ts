@@ -102,6 +102,52 @@ function BenzinesDb(autok:Auto[]):number{
     return db;
 }
 
+/*
+- Keszits alprogramot, ami..
+    - Egy auto tombbol megadja az atlag hengerurtartalmat
+    - Eldonti, hogy van-e nem benzines auto az autok tombben
+    - Szetvalogatja a benzines es nem benzines autokat
+
+- A valtoztatasokat toltsd fel a github repodba
+*/
+
+function AtlagHengerurtartalom(autok:Auto[]):number{
+    var atlag:number = 0;
+
+    for(var i:number = 0; i < autok.length; i++){
+        atlag += autok[i].hengerurtartalom;
+    }
+
+    atlag /= autok.length;
+    return atlag;
+}
+
+function VaneENemBenzines(autok:Auto[]):boolean{
+    var i:number = 0;
+
+    while(i < autok.length && !(autok[i].benzinesE == false)){
+        i++;
+    }
+
+    return i < autok.length;
+}
+
+function AutokSzetvalogatasa(autok:Auto[]):[Auto[], Auto[]]{
+    var benzinesek:Auto[] = [];
+    var nemBenzinesek:Auto[] = [];
+
+    for(var i:number = 0; i < autok.length; i++){
+        if(autok[i].benzinesE){
+            benzinesek.push(autok[i]);
+        }
+        else{
+            nemBenzinesek.push(autok[i]);
+        }  
+    }
+
+    return [benzinesek, nemBenzinesek];
+}
+
 function Futtatas():void{
     TrKeszito("Van-e negativ", [12, 23, 5, 0, -1, 17], VanENegativ([12, 23, 5, 0, -1, 17]));
     TrKeszito("Kor kerulet-terulet", 3, KorKerTer(3));
@@ -131,9 +177,16 @@ function Futtatas():void{
 
     TrKeszito("Min auto", autok, MinAuto(autok));
     TrKeszito("Benzines db", autok, BenzinesDb(autok));
+    TrKeszito("Atlag hengerurtartalom", autok, AtlagHengerurtartalom(autok));
+    TrKeszito("Van-e NEM benzines", autok, VaneENemBenzines(autok));
+    TrKeszito("Szetvalogatas", autok, AutokSzetvalogatasa(autok));
 
     /*console.log(MinAuto(autok));
     console.log(BenzinesDb(autok));*/
+
+    console.log(AtlagHengerurtartalom(autok));
+    console.log(VaneENemBenzines(autok));
+    console.log(AutokSzetvalogatasa(autok));
 }
 
 Futtatas();
